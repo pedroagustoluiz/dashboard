@@ -1,6 +1,14 @@
+import { useContext } from "react";
 import Button from "../components/Button";
+import { ItemsContext } from "../contexts/ItemsContext";
 
 const Items = () => {
+  const context = useContext(ItemsContext);
+
+  if (!context) {
+    throw new Error("contexto vazio");
+  }
+  const { items } = context;
   return (
     <>
       <div className="col-span-2 grid-rows-2 w-full ">
@@ -15,17 +23,19 @@ const Items = () => {
             </tr>
           </thead>
           <tbody className="text-lg">
-            <tr>
-              <td className="px-4 py-3">b-5559347y43-fdhduhd</td>
-              <td className="px-4 py-3">7 Wonders</td>
-              <td className="px-4 py-3">8 unid.</td>
-              <td className="px-4 py-3 ">Jogos</td>
-              <td className="px-4 py-3">
-                <Button text="Ver" color="bg-blue-700" />
-                <Button text="Atualizar" color="bg-yellow-400" />
-                <Button text="Excluir" color="bg-red-700" />
-              </td>
-            </tr>
+            {items.map((item) => (
+              <tr key={item.id}>
+                <td className="px-4 py-3">b{item.id}</td>
+                <td className="px-4 py-3">{item.name}</td>
+                <td className="px-4 py-3">{item.amount} unid.</td>
+                <td className="px-4 py-3 ">{item.category}</td>
+                <td className="px-4 py-3">
+                  <Button text="Ver" color="bg-blue-700" />
+                  <Button text="Atualizar" color="bg-yellow-400" />
+                  <Button text="Excluir" color="bg-red-700" />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

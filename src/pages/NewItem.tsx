@@ -4,11 +4,11 @@ import Input from "../components/Input";
 import { ItemsContext } from "../contexts/ItemsContext";
 
 const NewItem = () => {
-  const [nameItem, setNameItem] = useState<string>();
-  const [amountItem, setAmountItem] = useState<number>();
-  const [priceItem, setPriceItem] = useState<number>();
-  const [category, setCategory] = useState<string>();
-  const [description, setDescription] = useState<string>();
+  const [nameItem, setNameItem] = useState<string>("");
+  const [amountItem, setAmountItem] = useState<number>(0);
+  const [priceItem, setPriceItem] = useState<number>(0);
+  const [category, setCategory] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const context = useContext(ItemsContext);
 
   if (!context) {
@@ -18,7 +18,7 @@ const NewItem = () => {
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const newItem = {
-      Id: items.length + 1,
+      id: Date.now() + Math.floor(Math.random() * 1000),
       name: nameItem,
       amount: amountItem,
       priceItem: priceItem,
@@ -67,15 +67,15 @@ const NewItem = () => {
         />
 
         <select
-          name=""
-          id=""
+          name="category"
+          id="category"
           className="h-12 bg-zinc-600 rounded-2xl col-span-1 w-full px-4 font-bold"
           onChange={(ev) => setCategory(ev.target.value)}
           value={category}
         >
-          <option value="teste">teste</option>
-          <option value="teste2">teste2</option>
-          <option value="teste3">teste3</option>
+          <option value="electronics">Eletronicos</option>
+          <option value="games">Jogos</option>
+          <option value="furniture">Móveis</option>
         </select>
         <textarea
           name="description"
