@@ -1,8 +1,16 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
+import { useState } from "react";
+import { ItemsContext } from "./contexts/ItemsContext";
 
 const App = () => {
-  return <RouterProvider router={router}></RouterProvider>;
+  const [items, setItems] = useState<object[]>([]);
+
+  return (
+    <ItemsContext.Provider value={{ items, setItems }}>
+      <RouterProvider router={router} />
+    </ItemsContext.Provider>
+  );
 };
 
 export default App;
