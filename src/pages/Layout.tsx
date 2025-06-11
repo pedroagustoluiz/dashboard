@@ -4,7 +4,9 @@ const Layout = () => {
   return (
     <>
       <header className="bg-blue-700 text-white p-4 px-10 flex justify-between ">
-        <h1 className="font-bold text-2xl">REACT STOCK</h1>
+        <Link to="/">
+          <h1 className="font-bold text-2xl">REACT STOCK</h1>
+        </Link>
         <nav className="flex gap-3 text-lg">
           <Link to="/" className="cursor-pointer hover:text-zinc-300">
             Início
