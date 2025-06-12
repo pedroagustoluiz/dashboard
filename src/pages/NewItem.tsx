@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { ItemsContext } from "../contexts/ItemsContext";
@@ -24,7 +24,7 @@ const NewItem = () => {
       priceItem: priceItem,
       category: category,
       description: description,
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split("T")[0],
     };
     setItems((prevItems) => [...prevItems, newItem]);
     setNameItem("");
@@ -32,19 +32,9 @@ const NewItem = () => {
     setPriceItem(0);
     setCategory("");
     setDescription("");
+    console.log(items);
     return alert(`Item Salvo! ${nameItem}`);
   };
-
-  useEffect(() => {
-    const items = localStorage.getItem("items");
-    if (items) {
-      setItems(JSON.parse(items));
-    }
-  }, [setItems]);
-
-  useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(items));
-  }, [items]);
 
   return (
     <>
