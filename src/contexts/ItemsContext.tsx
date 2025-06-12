@@ -8,6 +8,7 @@ export interface Item {
   priceItem?: number;
   category?: string;
   description?: string;
+  date?: string;
 }
 
 interface ItemContextType {

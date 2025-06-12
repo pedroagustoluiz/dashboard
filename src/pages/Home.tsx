@@ -1,18 +1,52 @@
+import { useContext } from "react";
 import Button from "../components/Button";
 import MainTitle from "../components/MainTitle";
 import { Square } from "../components/Square";
+import { ItemsContext, type Item } from "../contexts/ItemsContext";
 
 const Home = () => {
+  const context = useContext(ItemsContext);
+
+  if (!context) {
+    throw new Error("contexto vazio");
+  }
+  const { items } = context;
+
+  const totalAmount = () => {
+    return items.reduce((total, item) => total + (item.amount ?? 0), 0);
+  };
+
+  const recentItems = () => {
+    const recentItems: Item[] = [];
+
+    items.forEach((item) => {
+      if (item.date === new Date().toISOString().split("T")[0]) {
+        recentItems.push(item);
+      }
+    });
+
+    return recentItems;
+  };
+
+  const endItems = () => {
+    const result: Item[] = [];
+    items.forEach((item) => {
+      if (item.amount !== undefined && item.amount <= 5) {
+        result.push(item);
+      }
+    });
+    return result;
+  };
   return (
-    <div>
+    <>
       <MainTitle title="DashBoard" />
       <div className="grid grid-cols-4 gap-10 place-items-center">
-        <Square title="Diversidade de Items" number={2} />
-        <Square title="Inventário Total" number={40} />
-        <Square title="Itens Recentes" number={2} />
-        <Square title="Items Acabando" number={1} />
+        <Square title="Diversidade de Items" number={items.length} />
+        <Square title="Inventário Total" number={totalAmount()} />
+        <Square title="Itens Recentes" number={recentItems().length} />
+        <Square title="Items Acabando" number={endItems().length} />
         <div className="col-span-2 grid-rows-2 w-full">
-          <table className="table-auto w-full">
+          <table className="table-auto h-full w-full">
             <thead className="h-12 shadow-2xl shadow-black bg-zinc-600 text-lg text-white">
               <tr>
                 <th className="px-4 py-3 text-left">Items Recentes</th>
@@ -20,12 +54,14 @@ const Home = () => {
               </tr>
             </thead>
             <tbody className="text-lg">
-              <tr>
-                <td className="px-4 py-3">Teste</td>
-                <td className="px-4 py-3">
-                  <Button text="Ver" color="bg-blue-700" />
-                </td>
-              </tr>
+              {items.map((item) => (
+                <tr>
+                  <td className="px-4 py-3">{item.name}</td>
+                  <td className="px-4 py-3">
+                    <Button text="Ver" color="bg-blue-700" />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -39,18 +75,20 @@ const Home = () => {
               </tr>
             </thead>
             <tbody className="text-lg">
-              <tr>
-                <td className="px-4 py-3">Teste</td>
-                <td className="px-4 py-3">8</td>
-                <td className="px-4 py-3">
-                  <Button text="Ver" color="bg-blue-700" />
-                </td>
-              </tr>
+              {endItems().map((item) => (
+                <tr key={item.id}>
+                  <td className="px-4 py-3">{item.name}</td>
+                  <td className="px-4 py-3">{item.amount}</td>
+                  <td className="px-4 py-3">
+                    <Button text="Ver" color="bg-blue-700" />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

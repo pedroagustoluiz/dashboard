@@ -24,9 +24,14 @@ const NewItem = () => {
       priceItem: priceItem,
       category: category,
       description: description,
+      date: new Date().toISOString().split('T')[0],
     };
     setItems((prevItems) => [...prevItems, newItem]);
-
+    setNameItem("");
+    setAmountItem(0);
+    setPriceItem(0);
+    setCategory("");
+    setDescription("");
     return alert(`Item Salvo! ${nameItem}`);
   };
 
