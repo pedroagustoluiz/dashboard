@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import Button from "../components/Button";
 import { ItemsContext } from "../contexts/ItemsContext";
+import { Link } from "react-router-dom";
 
 const Items = () => {
   const context = useContext(ItemsContext);
@@ -30,7 +31,9 @@ const Items = () => {
                 <td className="px-4 py-3">{item.amount} unid.</td>
                 <td className="px-4 py-3 ">{item.category}</td>
                 <td className="px-4 py-3">
-                  <Button text="Ver" color="bg-blue-700" />
+                  <Link to={`${item.id}`}>
+                    <Button text="Ver" color="bg-blue-700" />
+                  </Link>
                   <Button text="Atualizar" color="bg-yellow-400" />
                   <Button text="Excluir" color="bg-red-700" />
                 </td>

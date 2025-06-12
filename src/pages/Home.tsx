@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import MainTitle from "../components/MainTitle";
 import { Square } from "../components/Square";
 import { ItemsContext, type Item } from "../contexts/ItemsContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const context = useContext(ItemsContext);
@@ -58,7 +59,9 @@ const Home = () => {
                 <tr>
                   <td className="px-4 py-3">{item.name}</td>
                   <td className="px-4 py-3">
-                    <Button text="Ver" color="bg-blue-700" />
+                    <Link to={`items/${item.id}`}>
+                      <Button text="Ver" color="bg-blue-700" />
+                    </Link>
                   </td>
                 </tr>
               ))}

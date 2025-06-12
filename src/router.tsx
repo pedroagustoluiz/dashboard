@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Items from "./pages/Items";
 import LayoutItems from "./pages/LayoutItems";
 import NewItem from "./pages/NewItem";
+import Item from "./pages/Item";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
           {
             path: "newItem",
             element: <NewItem />,
+          },
+          {
+            path: ":itemId",
+            element: <Item />,
           },
         ],
       },
